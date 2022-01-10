@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiCliente.Domain.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace ApiCliente.Application.DTO
         public DateTime DataNascimento { get; set; }
 
         public string Cep { get; set; }
+    
+
 
 
     }

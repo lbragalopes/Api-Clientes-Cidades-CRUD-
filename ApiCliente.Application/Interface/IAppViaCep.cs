@@ -9,6 +9,7 @@ namespace ApiCliente.Application.Interface
 {
     public interface IAppViaCep
     {
-        Task<ViaCep> GetEnderecoAsync(string cep);
+       
+        Task<ViaCep> GetViaCepJson(string cep);
     }
 }

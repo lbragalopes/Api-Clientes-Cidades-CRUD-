@@ -14,8 +14,16 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
         public void Configure(EntityTypeBuilder<Cidade> builder)
         {
             builder.ToTable("Cidade");
-            builder.Property(p => p.Nome).HasMaxLength(200).IsRequired();
-            builder.Property(p => p.Estado).IsRequired();
+            
+            builder.Property(c => c.Id)
+                .HasColumnName("Id");
+
+            builder.Property(c => c.Nome)
+                .HasColumnName("Nome")
+                .IsRequired();
+            
+            builder.Property(c => c.Estado)
+                .IsRequired();
            
         }
     }

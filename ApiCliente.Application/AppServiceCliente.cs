@@ -2,6 +2,7 @@
 using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
+using ApiCliente.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,40 +16,41 @@ namespace ApiCliente.Application
     {
         private readonly IServiceCliente _clienteService;
         private readonly IMapperCliente _clienteMapper;
+        private readonly IMapperCidade _cidadeMapper;
         private readonly IAppViaCep _viaCepService;
         private readonly IServiceCidade _cidadeService;
 
-        public AppServiceCliente(IServiceCliente clienteService, IMapperCliente mapperCliente, IAppViaCep viaCepService, IServiceCidade cidadeService)
+        public AppServiceCliente(IServiceCliente clienteService, IMapperCliente mapperCliente, IMapperCidade mapperCidade, IAppViaCep viaCepService, IServiceCidade cidadeService)
         {
             _clienteService = clienteService;
             _clienteMapper = mapperCliente;
+            _cidadeMapper = mapperCidade;
             _viaCepService = viaCepService;
             _cidadeService = cidadeService;
         }
 
         public void Add(ClienteDto clienteDto)
         {
-           // ClienteValidation clienteValidation = new ClienteValidation();
-
-           // if (clienteValidation.ValidaNome(clienteDto.Nome))
-               // throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres", "Erro cliente");
 
             var cliente = _clienteMapper.MapperToEntity(clienteDto);
             //popular o restante dos dados da classe cliente
-            var endereco = _viaCepService.GetEnderecoAsync(clienteDto.Cep).Result;
+            var endereco = _viaCepService.GetViaCepJson(clienteDto.Cep).Result;
             cliente.Bairro = endereco.Bairro;
             cliente.Logradouro = endereco.Logradouro;
             //consultar a cidade no banco atraves do campo localidade do endereço
             var cidade = _cidadeService.GetByLocalidade(endereco.Localidade, endereco.Uf);
+           
+
             // Se encontrar a cidade setar a cidade encontrada ao cliente
             if (cidade != null)
             {
                 cliente.Cidade = cidade;
+
             }
             else
             {
-                //Senão criar uma nova cidade
-                cliente.Cidade = new Domain.Entity.Cidade() { Nome = endereco.Localidade, Estado = endereco.Uf };
+                cliente.Cidade = new Cidade() { Nome = endereco.Localidade, Estado = endereco.Uf };
+
             }
 
             _clienteService.Add(cliente);

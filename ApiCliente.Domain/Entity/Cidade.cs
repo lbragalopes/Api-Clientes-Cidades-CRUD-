@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ApiCliente.Domain.Entity
 {
-    public class Cidade : Base
+    public class Cidade 
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Estado { get; set; }
-
-       // public ICollection<Cliente> Clientes { get; set; }
+        public ICollection<Cliente> Clientes { get; set; }
 
     }
 }

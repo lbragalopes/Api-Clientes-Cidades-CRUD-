@@ -56,8 +56,7 @@ namespace ApiCliente.Application.Mapper
                     Nome = clienteDto.Nome,
                     DataNascimento = clienteDto.DataNascimento,
                     Cep = clienteDto.Cep,
-
-
+                    
 
                 };
 

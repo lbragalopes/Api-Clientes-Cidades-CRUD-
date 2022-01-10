@@ -1,47 +1,77 @@
 ﻿using ApiCliente.Application.Interface;
 using ApiCliente.Domain.Entity;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ApiCliente.Application
 {
     public class AppServiceViaCep : IAppViaCep
     {
-        private readonly IHttpClientFactory _clientFactory;
-
-
+        private readonly IHttpClientFactory clientFactory;
         public AppServiceViaCep(IHttpClientFactory clientFactory)
         {
-            _clientFactory = clientFactory;
+            this.clientFactory = clientFactory;
         }
-
-
-        public async Task<ViaCep> GetEnderecoAsync(string cep)
+        //Method to get data needed from the Via Cap API
+        public async Task<ViaCep> GetViaCepJson(string cepOriginal)
         {
-
-
-            string url = $"https://ws.apicep.com/cep/{cep}.json";
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            var client = _clientFactory.CreateClient("viacep");
+            cepOriginal = CleanCep(cepOriginal);
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://viacep.com.br/ws/" + cepOriginal + "/json/");
+            var client = clientFactory.CreateClient();
             var response = await client.SendAsync(request);
-            string readString = await response.Content.ReadAsStringAsync();
-
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)//if cep found send ViaCep with info else send null
             {
-                var endereco = JsonConvert.DeserializeObject<ViaCep>(readString);
-                return endereco;
+                return await response.Content.ReadFromJsonAsync<ViaCep>();
             }
-            else
-            {
-                throw new Exception("Endereço não encontrado.");
-            }
-
+            return null;
         }
 
+        //Method to transform cpf string to one that can be accepted by the Via Cap API
+        private string CleanCep(string cepOriginal)
+        {
+            return cepOriginal.Replace("-", string.Empty);
+        }
     }
 }
+//        private readonly IHttpClientFactory httpClientFactory;
+//        private readonly string url;
+
+
+//        public AppServiceViaCep  (IHttpClientFactory httpClientFactory)
+//        {
+
+//            this.httpClientFactory = httpClientFactory;
+//           url = "https://viacep.com.br/ws/{0}/json/";
+//        }
+
+
+//        public async Task<ViaCep> GetEnderecoAsync(string cep)
+//        {
+
+//            var client = httpClientFactory.CreateClient();
+
+//            var response = await client.GetAsync(string.Format(url, cep));
+
+//            if (response.IsSuccessStatusCode)
+//            {
+//                var content = await response.Content.ReadAsStringAsync();
+
+//                var endereco = JsonConvert.DeserializeObject<ViaCep>(content);
+
+//                if (string.IsNullOrEmpty(endereco.Cep))
+//                    return null;
+
+//                return endereco;
+//            }
+
+//            return null;
+//        }
+//    }
+//}

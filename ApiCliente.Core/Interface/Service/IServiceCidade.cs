@@ -9,6 +9,6 @@ namespace ApiCliente.Core.Interface.Service
 {
     public interface IServiceCidade : IServiceBase<Cidade>
     {
-        Cidade GetByLocalidade(string localidade, string uf);
+       Cidade GetByLocalidade(string Localidade, string Uf);
     }
 }
