@@ -80,17 +80,28 @@ namespace ApiCliente.Controllers
         }
 
 
-        [HttpPut]
-        public ActionResult Put([FromBody] ClienteDto clienteDTO)
+        [HttpPut("{id}")]
+        public ActionResult Put(int id)
         {
             try
             {
-                if (clienteDTO == null)
+                if (id == 0)
                     return NotFound();
 
-                _clienteAppService.Update(clienteDTO);
-                return Ok("Cliente Atualizado com sucesso!");
+                var cliente = _clienteAppService.GetById(id);
+                if (cliente != null)
+                {
+
+                    _clienteAppService.Update(id);
+                    return Ok("Cliente Atualizado com sucesso!");
+                }
+                else
+                {
+                    return NotFound();
+
+                }
             }
+
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $" {ex.Message}");

@@ -81,10 +81,10 @@ namespace ApiCliente.Application
             _clienteService.Remove(objCliente);
         }
 
-        public void Update(ClienteDto clienteDto)
+        public void Update(int id)
         {
-          
-            var objCliente = _clienteMapper.MapperToEntity(clienteDto);
+
+            var objCliente = _clienteService.GetById(id);
             _clienteService.Update(objCliente);
         }
    

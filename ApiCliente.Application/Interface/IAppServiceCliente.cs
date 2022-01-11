@@ -11,7 +11,7 @@ namespace ApiCliente.Application.Interface
     {
         void Add(ClienteDto clienteDto);
 
-        void Update(ClienteDto clienteDto);
+        void Update(int id);
 
         void Remove(int id);
 
