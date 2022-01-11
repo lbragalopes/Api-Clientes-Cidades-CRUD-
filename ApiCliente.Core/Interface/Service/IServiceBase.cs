@@ -17,5 +17,6 @@ namespace ApiCliente.Core.Interface.Service
         IEnumerable<TEntity> GetAll();
 
         TEntity GetById(int id);
+      
     }
 }

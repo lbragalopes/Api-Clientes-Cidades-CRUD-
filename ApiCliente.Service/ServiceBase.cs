@@ -31,8 +31,9 @@ namespace ApiCliente.Service
         {
             return _repository.GetById(id);
         }
+  
 
-        public void Remove(TEntity obj)
+        public virtual void Remove(TEntity obj)
         {
             _repository.Remove(obj);
         }

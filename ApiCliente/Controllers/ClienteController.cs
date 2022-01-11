@@ -98,21 +98,32 @@ namespace ApiCliente.Controllers
         }
 
 
-        [HttpDelete()]
-        public ActionResult Delete([FromBody] ClienteDto clienteDTO)
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
         {
             try
             {
-                if (clienteDTO == null)
+                if (id == 0)
                     return NotFound();
 
-                _clienteAppService.Remove(clienteDTO);
-                return Ok("Cadastro Removido com sucesso!");
+                var cliente = _clienteAppService.GetById(id);
+                if (cliente != null)
+                {
+                    _clienteAppService.Remove(id);
+                    return Ok("Cliente Removido com sucesso!");
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
         }
+
+    
     }
 }

@@ -13,7 +13,7 @@ namespace ApiCliente.Application.Interface
 
         void Update(ClienteDto clienteDto);
 
-        void Remove(ClienteDto clienteDto);
+        void Remove(int id);
 
         IEnumerable<ClienteDto> GetAll();
 

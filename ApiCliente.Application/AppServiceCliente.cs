@@ -72,21 +72,24 @@ namespace ApiCliente.Application
             return cliente;
         }
 
-        public void Remove(ClienteDto clienteDto)
+       
+
+        public void Remove(int id)
         {
-            var objCliente = _clienteMapper.MapperToEntity(clienteDto);
+           
+            var objCliente = _clienteService.GetById(id);
             _clienteService.Remove(objCliente);
         }
 
         public void Update(ClienteDto clienteDto)
         {
-            //ClienteValidation clienteValidation = new ClienteValidation();
-
-           // if (clienteValidation.ValidaNome(clienteDto.Nome))
-              //  throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres", "Erro cliente");
-
+          
             var objCliente = _clienteMapper.MapperToEntity(clienteDto);
             _clienteService.Update(objCliente);
         }
+   
+    
+    
+    
     }
 }

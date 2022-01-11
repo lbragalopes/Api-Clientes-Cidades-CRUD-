@@ -14,16 +14,19 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
         public void Configure(EntityTypeBuilder<Cliente> builder)
         {
             builder.ToTable("Cliente");
-            
+
             builder.Property(c => c.Id)
-                 .HasColumnName("Id");
+                 .HasColumnName("Id")
+                   .HasColumnType("int");
+
 
             builder.Property(c => c.Nome)
-                .HasColumnName("Nome")
-                .IsRequired();
+                .HasColumnName("Nome");
+             
 
             builder.Property(c => c.DataNascimento)
-                .HasColumnName("DataNascimento");
+                .HasColumnName("DataNascimento")
+             .HasColumnType("datetime2");
 
 
             builder.Property(c => c.Cep)
