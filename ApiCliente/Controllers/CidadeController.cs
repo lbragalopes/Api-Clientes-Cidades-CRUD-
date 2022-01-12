@@ -73,21 +73,26 @@ namespace ApiCliente.Controllers
             }
         }
         
-        // PUT api/values/5
-        [HttpPut]
-        public ActionResult Put([FromBody] CidadeDto cidadeDTO)
+       
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, CidadeDto cidadeDTO)
+       
         {
             try
             {
-                if (cidadeDTO == null)
+                if (id == 0)
                     return NotFound();
 
-                _cidadeAppService.Update(cidadeDTO);
+                _cidadeAppService.Update(id, cidadeDTO);
+
                 return Ok("Cidade atualizada com sucesso!");
+
+
+
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $" {ex.Message}");
             }
         }
 

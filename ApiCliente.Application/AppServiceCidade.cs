@@ -43,9 +43,13 @@ namespace ApiCliente.Application
             _cidadeService.Remove(objCidade);
         }
 
-        public void Update(CidadeDto obj)
+        public void Update(int id, CidadeDto obj)
         {
-            var objCidade = _cidadeMapper.MapperToEntity(obj);
+            var objCidade = _cidadeService.GetById(id);
+
+            objCidade.Nome = obj.Nome;
+            objCidade.Estado = obj.Estado;
+
             _cidadeService.Update(objCidade);
         }
     }

@@ -83,8 +83,8 @@ namespace ApiCliente.Controllers
 
 
         // PUT api/values/5
-        [HttpPut]
-        public ActionResult Put(int id, ClienteDto obj)
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, ClienteDto clienteDTO)
         {
             try
 
@@ -92,7 +92,7 @@ namespace ApiCliente.Controllers
                 if (id == 0)
                     return NotFound();
 
-               _clienteAppService.Update(id, obj);
+               _clienteAppService.Update(id, clienteDTO);
                
                 return Ok("Cliente Atualizado com sucesso!");
 
