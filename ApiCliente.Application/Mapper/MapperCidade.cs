@@ -19,7 +19,6 @@ namespace ApiCliente.Application.Mapper
 
                 CidadeDto cidadeDto = new CidadeDto
                 {
-                    //Id = cidade.Id,
                     Nome = cidade.Nome,
                     Estado = cidade.Estado
                 };
@@ -33,7 +32,6 @@ namespace ApiCliente.Application.Mapper
         {
             CidadeDto cidadeDto = new CidadeDto
             {
-                // Id = cidade.Id,
                 Nome = cidade.Nome,
                 Estado = cidade.Estado
             };
@@ -45,7 +43,6 @@ namespace ApiCliente.Application.Mapper
         {
             Cidade cidade = new Cidade
             {
-                //  Id = cidadeDto.Id,
                 Nome = cidadeDto.Nome,
                 Estado = cidadeDto.Estado
             };

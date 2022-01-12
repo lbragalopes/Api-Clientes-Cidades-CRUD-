@@ -3,6 +3,7 @@ using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
 using ApiCliente.Domain.Entity;
+using ApiCliente.Domain.Validations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,12 @@ namespace ApiCliente.Application
 
         public void Add(ClienteDto obj)
         {
+            ClienteValidation clienteValidation = new ClienteValidation();
+
+            if (clienteValidation.ValidaNome(obj.Nome))
+                throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres.", "Erro cliente");
+
+
 
             var cliente = _clienteMapper.MapperToEntity(obj);
             //popular o restante dos dados da classe cliente
@@ -83,6 +90,11 @@ namespace ApiCliente.Application
 
         public void Update(int id, ClienteDto obj)
         {
+            ClienteValidation clienteValidation = new ClienteValidation();
+
+            if (clienteValidation.ValidaNome(obj.Nome))
+                throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres", "Erro cliente");
+
 
             var objCliente = _clienteService.GetById(id);
            

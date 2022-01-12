@@ -2,6 +2,7 @@
 using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
+using ApiCliente.Domain.Validations;
 using System.Collections.Generic;
 
 namespace ApiCliente.Application
@@ -20,6 +21,13 @@ namespace ApiCliente.Application
 
         public void Add(CidadeDto obj)
         {
+            CidadeValidation cidadeValidation = new CidadeValidation();
+
+            if (cidadeValidation.ValidarNomeCidade(obj.Nome))
+                throw new System.ArgumentException("Campo logradouro é obrigatório ou tem mais de 20 caracteres", "Erro cliente");
+            if (cidadeValidation.ValidarEstado(obj.Estado))
+                throw new System.ArgumentException("O campo estado é obrigatório ou tem mais de 2 caracteres", "Erro cliente");
+
 
             var objCidade = _cidadeMapper.MapperToEntity(obj);
             _cidadeService.Add(objCidade);
@@ -45,6 +53,14 @@ namespace ApiCliente.Application
 
         public void Update(int id, CidadeDto obj)
         {
+            CidadeValidation cidadeValidation = new CidadeValidation();
+
+            if (cidadeValidation.ValidarNomeCidade(obj.Nome))
+                throw new System.ArgumentException("Campo logradouro é obrigatório ou tem mais de 20 caracteres", "Erro cliente");
+            if (cidadeValidation.ValidarEstado(obj.Estado))
+                throw new System.ArgumentException("O campo estado é obrigatório ou tem mais de 2 caracteres", "Erro cliente");
+
+
             var objCidade = _cidadeService.GetById(id);
 
             objCidade.Nome = obj.Nome;

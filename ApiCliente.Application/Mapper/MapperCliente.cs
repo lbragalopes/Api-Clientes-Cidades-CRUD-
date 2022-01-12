@@ -22,6 +22,7 @@ namespace ApiCliente.Application.Mapper
                     Nome = item.Nome,
                     DataNascimento = item.DataNascimento,
                     Cep = item.Cep,
+                    
 
                 };
                 clienteDTOs.Add(clienteDTO);

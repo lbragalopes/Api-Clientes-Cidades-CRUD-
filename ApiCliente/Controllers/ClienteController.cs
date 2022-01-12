@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using ApiCliente.Core.Interface.Repository;
 
 namespace ApiCliente.Controllers
 {
@@ -15,10 +16,12 @@ namespace ApiCliente.Controllers
     public class ClienteController : ControllerBase
     {
         private readonly IAppServiceCliente _clienteAppService;
+       
 
         public ClienteController(IAppServiceCliente clienteAppService)
         {
             _clienteAppService = clienteAppService;
+           
         }
 
 
@@ -82,7 +85,7 @@ namespace ApiCliente.Controllers
         }
 
 
-        // PUT api/values/5
+       
         [HttpPut("{id}")]
         public ActionResult Put(int id, ClienteDto clienteDTO)
         {
