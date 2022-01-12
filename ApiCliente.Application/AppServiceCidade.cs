@@ -24,9 +24,9 @@ namespace ApiCliente.Application
             CidadeValidation cidadeValidation = new CidadeValidation();
 
             if (cidadeValidation.ValidarNomeCidade(obj.Nome))
-                throw new System.ArgumentException("Campo logradouro é obrigatório ou tem mais de 20 caracteres", "Erro cliente");
+                throw new System.ArgumentException("O campo Nome está vazio ou tem mais de 20 caracteres", "Erro cliente");
             if (cidadeValidation.ValidarEstado(obj.Estado))
-                throw new System.ArgumentException("O campo estado é obrigatório ou tem mais de 2 caracteres", "Erro cliente");
+                throw new System.ArgumentException("O campo Estado está vazio ou tem mais de 2 caracteres (Ex: SP)", "Erro cliente");
 
 
             var objCidade = _cidadeMapper.MapperToEntity(obj);

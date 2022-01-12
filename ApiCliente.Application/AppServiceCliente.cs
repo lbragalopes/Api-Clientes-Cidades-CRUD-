@@ -35,7 +35,7 @@ namespace ApiCliente.Application
             ClienteValidation clienteValidation = new ClienteValidation();
 
             if (clienteValidation.ValidaNome(obj.Nome))
-                throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres.", "Erro cliente");
+                throw new System.ArgumentException("Campo nome está vazio ou tem mais de 30 caracteres.", "Erro cliente");
 
 
 

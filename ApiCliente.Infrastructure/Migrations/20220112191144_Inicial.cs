@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ApiCliente.Infrastructure.Migrations
 {
-    public partial class NewMigration : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,8 @@ namespace ApiCliente.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Nome = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace ApiCliente.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: true),

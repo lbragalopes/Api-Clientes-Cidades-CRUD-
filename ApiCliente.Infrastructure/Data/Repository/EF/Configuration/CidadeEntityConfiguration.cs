@@ -13,7 +13,7 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<Cidade> builder)
         {
-            builder.ToTable("Cidade");
+            builder.ToTable("Cidades");
             
             builder.Property(c => c.Id)
                 .HasColumnName("Id")
@@ -24,6 +24,7 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
                 .IsRequired();
             
             builder.Property(c => c.Estado)
+                 .HasColumnName("Estado")
                 .IsRequired();
            
         }

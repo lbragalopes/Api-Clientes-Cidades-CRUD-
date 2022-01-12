@@ -13,7 +13,7 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<Cliente> builder)
         {
-            builder.ToTable("Cliente");
+            builder.ToTable("Clientes");
 
             builder.Property(c => c.Id)
                  .HasColumnName("Id")
@@ -21,8 +21,9 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
 
 
             builder.Property(c => c.Nome)
-                .HasColumnName("Nome");
-             
+                .HasColumnName("Nome")
+              .IsRequired();
+
 
             builder.Property(c => c.DataNascimento)
                 .HasColumnName("DataNascimento")

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCliente.Infrastructure.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20220110002416_NewMigration")]
-    partial class NewMigration
+    [Migration("20220112191144_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,10 +29,13 @@ namespace ApiCliente.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Estado")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -62,7 +65,9 @@ namespace ApiCliente.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -74,10 +79,15 @@ namespace ApiCliente.Infrastructure.Migrations
             modelBuilder.Entity("ApiCliente.Domain.Entity.Cliente", b =>
                 {
                     b.HasOne("ApiCliente.Domain.Entity.Cidade", "Cidade")
-                        .WithMany()
+                        .WithMany("Clientes")
                         .HasForeignKey("CidadeId");
 
                     b.Navigation("Cidade");
+                });
+
+            modelBuilder.Entity("ApiCliente.Domain.Entity.Cidade", b =>
+                {
+                    b.Navigation("Clientes");
                 });
 #pragma warning restore 612, 618
         }
