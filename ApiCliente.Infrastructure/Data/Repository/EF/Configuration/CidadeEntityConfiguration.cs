@@ -16,7 +16,8 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
             builder.ToTable("Cidade");
             
             builder.Property(c => c.Id)
-                .HasColumnName("Id");
+                .HasColumnName("Id")
+                     .HasColumnType("int");
 
             builder.Property(c => c.Nome)
                 .HasColumnName("Nome")

@@ -29,12 +29,12 @@ namespace ApiCliente.Application
             _cidadeService = cidadeService;
         }
 
-        public void Add(ClienteDto clienteDto)
+        public void Add(ClienteDto obj)
         {
 
-            var cliente = _clienteMapper.MapperToEntity(clienteDto);
+            var cliente = _clienteMapper.MapperToEntity(obj);
             //popular o restante dos dados da classe cliente
-            var endereco = _viaCepService.GetViaCepJson(clienteDto.Cep).Result;
+            var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
             cliente.Bairro = endereco.Bairro;
             cliente.Logradouro = endereco.Logradouro;
             //consultar a cidade no banco atraves do campo localidade do endereço
@@ -72,24 +72,47 @@ namespace ApiCliente.Application
             return cliente;
         }
 
-       
+
 
         public void Remove(int id)
         {
-           
+
             var objCliente = _clienteService.GetById(id);
             _clienteService.Remove(objCliente);
         }
 
-        public void Update(int id)
+        public void Update(int id, ClienteDto obj)
         {
 
             var objCliente = _clienteService.GetById(id);
+           
+            objCliente.Nome = obj.Nome;
+            objCliente.DataNascimento = obj.DataNascimento;
+            objCliente.Cep = obj.Cep;
+            var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
+            objCliente.Bairro = endereco.Bairro;
+           objCliente.Logradouro = endereco.Logradouro;
+            //consultar a cidade no banco atraves do campo localidade do endereço
+            var cidade = _cidadeService.GetByLocalidade(endereco.Localidade, endereco.Uf);
+
+
+            // Se encontrar a cidade setar a cidade encontrada ao cliente
+            if (cidade != null)
+            {
+                objCliente.Cidade = cidade;
+
+            }
+            else
+            {
+                objCliente.Cidade = new Cidade() { Nome = endereco.Localidade, Estado = endereco.Uf };
+
+            }
+
+
             _clienteService.Update(objCliente);
+           
+
         }
-   
-    
-    
-    
+
     }
 }

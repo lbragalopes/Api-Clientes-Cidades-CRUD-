@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace ApiCliente.Controllers
 {
@@ -80,33 +82,29 @@ namespace ApiCliente.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public ActionResult Put(int id)
+        // PUT api/values/5
+        [HttpPut]
+        public ActionResult Put(int id, ClienteDto obj)
         {
             try
+
             {
                 if (id == 0)
                     return NotFound();
 
-                var cliente = _clienteAppService.GetById(id);
-                if (cliente != null)
-                {
+               _clienteAppService.Update(id, obj);
+               
+                return Ok("Cliente Atualizado com sucesso!");
 
-                    _clienteAppService.Update(id);
-                    return Ok("Cliente Atualizado com sucesso!");
-                }
-                else
-                {
-                    return NotFound();
 
-                }
+                           
             }
-
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $" {ex.Message}");
             }
         }
+
 
 
         [HttpDelete("{id}")]
@@ -120,6 +118,7 @@ namespace ApiCliente.Controllers
                 var cliente = _clienteAppService.GetById(id);
                 if (cliente != null)
                 {
+
                     _clienteAppService.Remove(id);
                     return Ok("Cliente Removido com sucesso!");
                 }
@@ -135,6 +134,6 @@ namespace ApiCliente.Controllers
             }
         }
 
-    
+
     }
 }

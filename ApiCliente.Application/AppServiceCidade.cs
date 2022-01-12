@@ -2,11 +2,7 @@
 using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Application
 {
@@ -22,14 +18,10 @@ namespace ApiCliente.Application
             _cidadeMapper = cidadeMapper;
         }
 
-        public void Add(CidadeDto cidadeDto)
+        public void Add(CidadeDto obj)
         {
-           // CidadeValidation cidadeValidation = new CidadeValidation();
-           
-           // if (cidadeValidation.ValidarEstado(cidadeDto.Estado))
-              //  throw new System.ArgumentException("O campo estado é obrigatório ou tem mais de 40 caracteres", "Erro cliente");
 
-            var objCidade = _cidadeMapper.MapperToEntity(cidadeDto);
+            var objCidade = _cidadeMapper.MapperToEntity(obj);
             _cidadeService.Add(objCidade);
         }
 
@@ -45,20 +37,15 @@ namespace ApiCliente.Application
             return _cidadeMapper.MapperToDTO(objCidade);
         }
 
-        public void Remove(CidadeDto cidadeDto)
+        public void Remove(int id)
         {
-            var objCidade = _cidadeMapper.MapperToEntity(cidadeDto);
+            var objCidade = _cidadeService.GetById(id);
             _cidadeService.Remove(objCidade);
         }
 
-        public void Update(CidadeDto cidadeDto)
+        public void Update(CidadeDto obj)
         {
-           // CidadeValidation cidadeValidation = new CidadeValidation();
-
-            //if (cidadeValidation.ValidarEstado(cidadeDto.Estado))
-             //   throw new System.ArgumentException("O campo estado é obrigatório ou tem mais de 40 caracteres", "Erro cliente");
-
-            var objCidade = _cidadeMapper.MapperToEntity(cidadeDto);
+            var objCidade = _cidadeMapper.MapperToEntity(obj);
             _cidadeService.Update(objCidade);
         }
     }

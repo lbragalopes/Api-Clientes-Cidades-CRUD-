@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ApiCliente.Application.Interface
 {
-   public interface IAppServiceCliente
+    public interface IAppServiceCliente
     {
-        void Add(ClienteDto clienteDto);
+        void Add(ClienteDto obj);
 
-        void Update(int id);
+        void Update(int id, ClienteDto obj);
 
         void Remove(int id);
 

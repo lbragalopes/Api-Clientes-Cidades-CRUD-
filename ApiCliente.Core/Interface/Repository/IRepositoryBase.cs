@@ -12,7 +12,7 @@ namespace ApiCliente.Core.Interface.Repository
 
         void Update(TEntity obj);
 
-        void Remove(TEntity obj);
+       void Remove(TEntity obj);
 
         IEnumerable<TEntity> GetAll();
 

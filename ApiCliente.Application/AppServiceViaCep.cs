@@ -21,7 +21,7 @@ namespace ApiCliente.Application
         //Method to get data needed from the Via Cap API
         public async Task<ViaCep> GetViaCepJson(string cepOriginal)
         {
-            cepOriginal = CleanCep(cepOriginal);
+            cepOriginal = ApagarCep(cepOriginal);
             var request = new HttpRequestMessage(HttpMethod.Get,
             "https://viacep.com.br/ws/" + cepOriginal + "/json/");
             var client = clientFactory.CreateClient();
@@ -33,45 +33,10 @@ namespace ApiCliente.Application
             return null;
         }
 
-        //Method to transform cpf string to one that can be accepted by the Via Cap API
-        private string CleanCep(string cepOriginal)
+        
+        private string ApagarCep(string cepOriginal)
         {
             return cepOriginal.Replace("-", string.Empty);
         }
     }
 }
-//        private readonly IHttpClientFactory httpClientFactory;
-//        private readonly string url;
-
-
-//        public AppServiceViaCep  (IHttpClientFactory httpClientFactory)
-//        {
-
-//            this.httpClientFactory = httpClientFactory;
-//           url = "https://viacep.com.br/ws/{0}/json/";
-//        }
-
-
-//        public async Task<ViaCep> GetEnderecoAsync(string cep)
-//        {
-
-//            var client = httpClientFactory.CreateClient();
-
-//            var response = await client.GetAsync(string.Format(url, cep));
-
-//            if (response.IsSuccessStatusCode)
-//            {
-//                var content = await response.Content.ReadAsStringAsync();
-
-//                var endereco = JsonConvert.DeserializeObject<ViaCep>(content);
-
-//                if (string.IsNullOrEmpty(endereco.Cep))
-//                    return null;
-
-//                return endereco;
-//            }
-
-//            return null;
-//        }
-//    }
-//}

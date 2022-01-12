@@ -9,11 +9,11 @@ namespace ApiCliente.Application.Interface
 {
    public interface IAppServiceCidade
     {
-        void Add(CidadeDto cidadeDto);
+        void Add(CidadeDto obj);
 
-        void Update(CidadeDto cidadeDto);
+        void Update(CidadeDto obj);
 
-        void Remove(CidadeDto cidadeDto);
+        void Remove(int id);
 
         IEnumerable<CidadeDto> GetAll();
 

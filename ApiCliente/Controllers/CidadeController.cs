@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace ApiCliente.Controllers
 {
- 
-   [Route("api/[controller]")]
+
+    [Route("api/[controller]")]
     [ApiController]
     public class CidadeController : ControllerBase
     {
@@ -20,7 +20,6 @@ namespace ApiCliente.Controllers
         {
             _cidadeAppService = cidadeAppService;
         }
-
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -38,13 +37,12 @@ namespace ApiCliente.Controllers
             }
         }
 
-
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
             try
             {
-                if (id <= 0)
+                if (id == 0)
                     return NotFound();
 
                 var result = _cidadeAppService.GetById(id);
@@ -57,7 +55,6 @@ namespace ApiCliente.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha: {ex.Message}");
             }
         }
-
 
         [HttpPost]
         public ActionResult Post([FromBody] CidadeDto cidadeDTO)
@@ -75,8 +72,8 @@ namespace ApiCliente.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha: {ex.Message}");
             }
         }
-
-
+        
+        // PUT api/values/5
         [HttpPut]
         public ActionResult Put([FromBody] CidadeDto cidadeDTO)
         {
@@ -95,19 +92,28 @@ namespace ApiCliente.Controllers
         }
 
 
-        [HttpDelete()]
-        public ActionResult Delete([FromBody] CidadeDto cidadeDTO)
-        {
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+                                {
             try
             {
-                if (cidadeDTO == null)
+                if (id == 0)
                     return NotFound();
 
-                _cidadeAppService.Remove(cidadeDTO);
-                return Ok("Cadastro Removido com sucesso!");
+                var cidade = _cidadeAppService.GetById(id);
+                if (cidade != null)
+                {
+                    _cidadeAppService.Remove(id);
+                    return Ok("Cidade removida com sucesso!");
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
         }
