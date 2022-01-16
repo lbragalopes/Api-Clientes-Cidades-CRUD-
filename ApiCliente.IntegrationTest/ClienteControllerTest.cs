@@ -20,7 +20,7 @@ namespace ApiCliente.IntegrationTest
                 
         }
 
-        [Fact(DisplayName = "Listar itens cliente")]
+        [Fact(DisplayName = "Listar itens cliente"), TestPriority(2)]
         [Trait("Cliente", "Integração API")]
         public async Task ListarItem_Cliente_DeveRetornarComSucesso()
         {
@@ -30,10 +30,9 @@ namespace ApiCliente.IntegrationTest
             // Assert
             deleteResponse.EnsureSuccessStatusCode();
         }
+          
 
-  
-
-        [Fact(DisplayName = "Adicionar novo cliente")]
+        [Fact(DisplayName = "Adicionar novo cliente"), TestPriority(1)]
         [Trait("Cliente", "Integração API")]
         public async Task AdicionarItem_NovoCliente_DeveRetornarComSucesso()
         {
@@ -54,7 +53,7 @@ namespace ApiCliente.IntegrationTest
             postResponse.EnsureSuccessStatusCode();
         }
 
-        [Fact(DisplayName = "Remover item cliente")]
+        [Fact(DisplayName = "Remover item cliente"), TestPriority(3)]
         [Trait("Cliente", "Integração API")]
         public async Task RemoverItem_Cliente_DeveRetornarComSucesso()
         {
