@@ -18,12 +18,9 @@ namespace ApiCliente.Application.Mapper
             {
                 ClienteDto clienteDTO = new ClienteDto
                 {
-
                     Nome = item.Nome,
                     DataNascimento = item.DataNascimento,
                     Cep = item.Cep,
-                    
-
                 };
                 clienteDTOs.Add(clienteDTO);
             }
@@ -34,14 +31,11 @@ namespace ApiCliente.Application.Mapper
         public ClienteDto MapperToDTO(Cliente Cliente)
         {
 
-
             ClienteDto clienteDTO = new ClienteDto
             {
-
                 Nome = Cliente.Nome,
                 DataNascimento = Cliente.DataNascimento,
                 Cep = Cliente.Cep,
-
             };
 
             return clienteDTO;
@@ -53,12 +47,9 @@ namespace ApiCliente.Application.Mapper
 
                 Cliente cliente = new Cliente
                 {
-
                     Nome = clienteDto.Nome,
                     DataNascimento = clienteDto.DataNascimento,
                     Cep = clienteDto.Cep,
-                    
-
                 };
 
                 return cliente;

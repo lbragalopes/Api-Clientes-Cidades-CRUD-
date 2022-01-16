@@ -4,6 +4,7 @@ using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
 using ApiCliente.Domain.Entity;
 using ApiCliente.Domain.Validations;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ using System.Threading.Tasks;
 namespace ApiCliente.Application
 {
     public class AppServiceCliente : IAppServiceCliente
-
     {
         private readonly IServiceCliente _clienteService;
         private readonly IMapperCliente _clienteMapper;
@@ -29,24 +29,22 @@ namespace ApiCliente.Application
             _viaCepService = viaCepService;
             _cidadeService = cidadeService;
         }
-
         public void Add(ClienteDto obj)
         {
+            // validação Nome cliente
             ClienteValidation clienteValidation = new ClienteValidation();
-
             if (clienteValidation.ValidaNome(obj.Nome))
                 throw new System.ArgumentException("Campo nome está vazio ou tem mais de 30 caracteres.", "Erro cliente");
 
-
-
             var cliente = _clienteMapper.MapperToEntity(obj);
+
             //popular o restante dos dados da classe cliente
             var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
             cliente.Bairro = endereco.Bairro;
             cliente.Logradouro = endereco.Logradouro;
+
             //consultar a cidade no banco atraves do campo localidade do endereço
             var cidade = _cidadeService.GetByLocalidade(endereco.Localidade, endereco.Uf);
-           
 
             // Se encontrar a cidade setar a cidade encontrada ao cliente
             if (cidade != null)
@@ -57,7 +55,6 @@ namespace ApiCliente.Application
             else
             {
                 cliente.Cidade = new Cidade() { Nome = endereco.Localidade, Estado = endereco.Uf };
-
             }
 
             _clienteService.Add(cliente);
@@ -79,8 +76,6 @@ namespace ApiCliente.Application
             return cliente;
         }
 
-
-
         public void Remove(int id)
         {
 
@@ -90,23 +85,22 @@ namespace ApiCliente.Application
 
         public void Update(int id, ClienteDto obj)
         {
+            //validação Nome cliente
             ClienteValidation clienteValidation = new ClienteValidation();
-
             if (clienteValidation.ValidaNome(obj.Nome))
                 throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres", "Erro cliente");
 
-
             var objCliente = _clienteService.GetById(id);
-           
+
             objCliente.Nome = obj.Nome;
             objCliente.DataNascimento = obj.DataNascimento;
             objCliente.Cep = obj.Cep;
             var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
             objCliente.Bairro = endereco.Bairro;
-           objCliente.Logradouro = endereco.Logradouro;
+            objCliente.Logradouro = endereco.Logradouro;
+            objCliente.CidadeId = objCliente.Cidade.Id;
             //consultar a cidade no banco atraves do campo localidade do endereço
             var cidade = _cidadeService.GetByLocalidade(endereco.Localidade, endereco.Uf);
-
 
             // Se encontrar a cidade setar a cidade encontrada ao cliente
             if (cidade != null)
@@ -119,12 +113,7 @@ namespace ApiCliente.Application
                 objCliente.Cidade = new Cidade() { Nome = endereco.Localidade, Estado = endereco.Uf };
 
             }
-
-
             _clienteService.Update(objCliente);
-           
-
         }
-
     }
 }

@@ -9,7 +9,6 @@ namespace ApiCliente.Application.Interface
 {
     public interface IAppViaCep
     {
-       
         Task<ViaCep> GetViaCepJson(string cep);
     }
 }

@@ -29,17 +29,20 @@ namespace ApiCliente
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+           
         }
 
         public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+                    
+     
             services.AddDbContext<SqlContext>(
               x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
           );
-
 
 
 
@@ -49,16 +52,8 @@ namespace ApiCliente
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiClientes", Version = "v1" });
             });
 
-            //services.AddHttpClient<ViaCep>(client =>
-            // {
-            //    client.BaseAddress = new Uri("https://viacep.com.br/ws/");
-            // });
 
             services.AddHttpClient();
-
-            //services.AddMvc().AddFluentValidation();
-
-
             services.AddScoped<IRepositoryCliente, ClienteRepository>();
             services.AddScoped<IAppServiceCliente, AppServiceCliente>();
             services.AddScoped<IServiceCliente, ServiceCliente>();

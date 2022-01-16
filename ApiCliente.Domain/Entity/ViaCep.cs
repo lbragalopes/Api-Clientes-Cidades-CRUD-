@@ -9,17 +9,15 @@ namespace ApiCliente.Domain.Entity
 {
     public class ViaCep
     {
-       [JsonProperty("cep")]
+        [JsonProperty("cep")]
         public string Cep { get; set; }
-       [JsonProperty("logradouro")]
+        [JsonProperty("logradouro")]
         public string Logradouro { get; set; }
-       [JsonProperty("bairro")]
+        [JsonProperty("bairro")]
         public string Bairro { get; set; }
         [JsonProperty("localidade")]
         public string Localidade { get; set; }
         [JsonProperty("uf")]
         public string Uf { get; set; }
-
-
     }
 }

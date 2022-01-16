@@ -19,9 +19,9 @@ namespace ApiCliente.Service
             _repositoryCidade = repositoryCidade;
         }
 
-       public Cidade GetByLocalidade(string Localidade, string Uf)
+        public Cidade GetByLocalidade(string Localidade, string Uf)
         {
-           var cidade = _repositoryCidade.GetAll().Where(cidade => cidade.Nome == Localidade && cidade.Estado == Uf).FirstOrDefault();
+            var cidade = _repositoryCidade.GetAll().Where(cidade => cidade.Nome.Equals(Localidade) && cidade.Estado.Equals(Uf)).FirstOrDefault();
             return cidade;
         }
     }

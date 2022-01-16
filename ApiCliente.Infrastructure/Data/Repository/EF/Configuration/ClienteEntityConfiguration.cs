@@ -40,11 +40,9 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF.Configuration
 
             builder.Property(c => c.Bairro)
                 .HasColumnName("Bairro");
-                
-
-        
 
           
+
 
 
         }

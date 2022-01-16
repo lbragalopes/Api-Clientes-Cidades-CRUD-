@@ -13,12 +13,12 @@ namespace ApiCliente.Domain.Entity
         [StringLength(30, ErrorMessage = "Campo nome deve conter no máximo 30 caracteres")]
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
-       public string Cep { get; set; }
+        public string Cep { get; set; }
         public string Logradouro { get; set; }
         public string Bairro { get; set; }
-   
         public Cidade Cidade { get; set; }
-        
+        public int CidadeId { get; set; }
+
     }
 }
 

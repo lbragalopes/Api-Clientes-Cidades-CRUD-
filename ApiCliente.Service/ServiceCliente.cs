@@ -18,5 +18,14 @@ namespace ApiCliente.Service
         {
             _repositoryCliente = repositoryCliente;
         }
+
+        public Cliente GetByCidadeId(int id)
+        {
+
+        return _repositoryCliente.GetAll().Where(c => c.CidadeId == id).FirstOrDefault();
+            
+                    
+        }
     }
-}
+  }
+

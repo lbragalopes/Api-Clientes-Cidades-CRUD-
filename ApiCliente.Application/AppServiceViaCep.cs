@@ -18,7 +18,7 @@ namespace ApiCliente.Application
         {
             this.clientFactory = clientFactory;
         }
-        //Method to get data needed from the Via Cap API
+
         public async Task<ViaCep> GetViaCepJson(string cepOriginal)
         {
             cepOriginal = ApagarCep(cepOriginal);
@@ -26,14 +26,12 @@ namespace ApiCliente.Application
             "https://viacep.com.br/ws/" + cepOriginal + "/json/");
             var client = clientFactory.CreateClient();
             var response = await client.SendAsync(request);
-            if (response.IsSuccessStatusCode)//if cep found send ViaCep with info else send null
+            if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<ViaCep>();
             }
             return null;
         }
-
-        
         private string ApagarCep(string cepOriginal)
         {
             return cepOriginal.Replace("-", string.Empty);

@@ -10,6 +10,9 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF
 {
     public class SqlContext : DbContext
     {
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
+
         public SqlContext()
         {
 
@@ -19,9 +22,13 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF
         {
 
         }
-
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Cidade> Cidades { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (optionsBuilder.IsConfigured) return;
+            optionsBuilder
+                .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Sprint5DB;Trusted_Connection=True;");
+        }
+              
     }
 
 }
