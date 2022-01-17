@@ -1,20 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Net.Mime;
+using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
+
 
 namespace ApiCliente.IntegrationTest.Config
 {
 
-
     [CollectionDefinition(nameof(IntegrationApiTestsFixtureCollection))]
-    public class IntegrationApiTestsFixtureCollection : ICollectionFixture<IntegrationTestFixture<StartupApiTest>> { }
+    public class IntegrationApiTestsFixtureCollection : ICollectionFixture<IntegrationTestFixture<StartupApiTest>>
+    {
+    }
 
     public class IntegrationTestFixture<TStartup> : IDisposable where TStartup : class
     {
@@ -37,14 +40,44 @@ namespace ApiCliente.IntegrationTest.Config
         }
 
 
-
-         public StringContent PrepararConteudoEnviarApi(object dado)
+        internal async Task<T> RecuperarConteudoRequisicao<T>(HttpResponseMessage response)
         {
-          return new StringContent(
-                 JsonSerializer.Serialize(dado),
-                 Encoding.UTF8,
-                 MediaTypeNames.Application.Json);
+            var dados = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(dados);
         }
+
+        internal async Task TestarRequisicaoComErro(HttpResponseMessage resposta, string mensagemErroEsperada)
+        {
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var mensagemErroRequest = await resposta.Content.ReadAsStringAsync();
+
+            mensagemErroRequest.Trim().Should().Be(mensagemErroEsperada.Trim());
+        }
+
+        internal async Task TestarRequisicaoComErro(HttpResponseMessage resposta, List<string> erros)
+        {
+            var mensagemErroEsperada = "";
+
+            erros.ForEach(erro =>
+            {
+                mensagemErroEsperada += $"{erro}{Environment.NewLine}";
+            });
+
+            await TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+        }
+
+        internal HttpContent GerarCorpoRequisicao<T>(T conteudo)
+        {
+            return new StringContent(JsonConvert.SerializeObject(conteudo), Encoding.UTF8, "application/json");
+        }
+        internal async Task TestarRequisicaoInvalida(HttpResponseMessage response, string mensagemErro)
+        {
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+            }
 
         // //public async Task AcessarApi()
         //// {

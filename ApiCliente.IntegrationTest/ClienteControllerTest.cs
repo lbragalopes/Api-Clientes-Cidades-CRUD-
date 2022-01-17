@@ -5,6 +5,14 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using ApiCliente.IntegrationTest.Config;
 using System;
 using ApiCliente.Domain.Entity;
+using System.Net.Http;
+using System.Text;
+using System.Net.Mime;
+using System.Net;
+using ApiCliente.Application.DTO;
+using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
 
 namespace ApiCliente.IntegrationTest
 {
@@ -17,35 +25,49 @@ namespace ApiCliente.IntegrationTest
         public ClienteControllerTest(IntegrationTestFixture<StartupApiTest> integrationTest)
         {
             _integrationTest = integrationTest;
-                
+
         }
 
-        [Fact(DisplayName = "Listar itens cliente"), TestPriority(2)]
+        [Fact(DisplayName = "Listar clientes"), TestPriority(3)]
         [Trait("Cliente", "Integração API")]
-        public async Task ListarItem_Cliente_DeveRetornarComSucesso()
+        public async Task ListarCliente_DeveRetornarComSucesso()
         {
+
             // Act
-            var deleteResponse = await _integrationTest.Client.GetAsync($"api/cliente/");
+            var postResponse = await _integrationTest.Client.GetAsync($"api/cliente/");
 
             // Assert
-            deleteResponse.EnsureSuccessStatusCode();
+            postResponse.EnsureSuccessStatusCode();
         }
-          
 
-        [Fact(DisplayName = "Adicionar novo cliente"), TestPriority(1)]
+        [Fact(DisplayName = "Buscar cliente por Id com sucesso"), TestPriority(6)]
+        [Trait("Cliente", "Integração API ")]
+        public async Task BuscarCliente_porId_DeveRetornarComSucesso()
+        {
+            
+            // Act
+            var postResponse = await _integrationTest.Client.GetAsync($"api/cliente/3");
+
+            // Assert
+            postResponse.EnsureSuccessStatusCode();
+
+
+        }
+
+        [Fact(DisplayName = "Adicionar cliente com Sucesso"), TestPriority(1)]
         [Trait("Cliente", "Integração API")]
-        public async Task AdicionarItem_NovoCliente_DeveRetornarComSucesso()
+        public async Task QuandoAdicionarNovoCliente_DeveRetornar_Sucesso()
         {
             // Arrange
-            var itemInfo = new Cliente
+            var itemInfo = new 
             {
-                Nome = "ClienteTeste",
-                //DataNascimento = "2001008",
-                Cep = "32113514"
-               
+                nome = "Cliente Teste",
+                dataNascimento = "2010-10-10",
+                cep = "30411325"
+
             };
 
-            var content = _integrationTest.PrepararConteudoEnviarApi(itemInfo);
+            var content = _integrationTest.GerarCorpoRequisicao(itemInfo);
             // Act
             var postResponse = await _integrationTest.Client.PostAsync("api/cliente/", content);
 
@@ -53,18 +75,63 @@ namespace ApiCliente.IntegrationTest
             postResponse.EnsureSuccessStatusCode();
         }
 
-        [Fact(DisplayName = "Remover item cliente"), TestPriority(3)]
+        [Fact(DisplayName = "Adicionar novo cliente - sem CEP"), TestPriority(2)]
         [Trait("Cliente", "Integração API")]
-        public async Task RemoverItem_Cliente_DeveRetornarComSucesso()
+        public async Task QuandoAdicionarNovoCliente_DeveRetornar_BadRequest()
         {
             // Arrange
-            var Id = 1;
+            var itemInfo = new 
+            {
+                Nome = "Cliente Teste",
+                Cep = ""
+
+            };
+
+            var content = _integrationTest.GerarCorpoRequisicao(itemInfo);
+            // Act
+            var postResponse = await _integrationTest.Client.PostAsync("api/cliente/", content);
+
+            // Assert 
+            Assert.False(postResponse.IsSuccessStatusCode);
+        }
+
+        [Fact(DisplayName = "Atualizar cliente"), TestPriority(4)]
+        [Trait("Cliente", "Integração API")]
+        public async Task QuandoAtualizarCliente_DeveRetornar_Sucesso()
+        {
+            // Arrange
+            var itemInfo = new 
+            {
+                nome = "Api Cliente Teste",
+                cep = "32113200"
+
+            };
+           
+           var content = _integrationTest.GerarCorpoRequisicao(itemInfo);
+           
+
+            var postResponse = await _integrationTest.Client.PutAsync($"api/cliente/{new Random().Next()}", content);
 
             // Act
-            var deleteResponse = await _integrationTest.Client.DeleteAsync($"api/cliente/{Id}");
-
-            // Assert
-            deleteResponse.EnsureSuccessStatusCode();
+                     
+            postResponse = await _integrationTest.Client.PutAsync(postResponse.Headers.Location, content);
+       
+            // Assert 
+            Assert.False(postResponse.IsSuccessStatusCode);
         }
+
+
+
+        [Fact(DisplayName = "Remover cliente"), TestPriority(5)]
+        [Trait("Cliente", "Integração API")]
+        public async Task Remover_Cliente_DeveRetornarComSucesso()
+        {
+            var resposta = await _integrationTest.Client.DeleteAsync($"api/cliente/");
+
+            resposta.EnsureSuccessStatusCode();
+
+        }
+
+     
     }
 }

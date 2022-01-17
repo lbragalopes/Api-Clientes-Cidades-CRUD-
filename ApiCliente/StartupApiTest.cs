@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ApiCliente.Application;
+using ApiCliente.Application.Interface;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace ApiCliente
 {
@@ -17,8 +19,11 @@ namespace ApiCliente
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddTransient<IAppServiceCliente, AppServiceCliente>();
+            services.AddMvc();
         }
+
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

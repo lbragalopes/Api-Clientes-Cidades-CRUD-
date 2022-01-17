@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ApiCliente.Domain.Entity
 {
-    public class Cliente : Base
+    public class Cliente 
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Campo nome é obrigatório")]
         [StringLength(30, ErrorMessage = "Campo nome deve conter no máximo 30 caracteres")]
         public string Nome { get; set; }
