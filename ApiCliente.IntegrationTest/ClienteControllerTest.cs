@@ -120,18 +120,6 @@ namespace ApiCliente.IntegrationTest
             Assert.False(postResponse.IsSuccessStatusCode);
         }
 
-
-
-        [Fact(DisplayName = "Remover cliente"), TestPriority(5)]
-        [Trait("Cliente", "Integração API")]
-        public async Task Remover_Cliente_DeveRetornarComSucesso()
-        {
-            var resposta = await _integrationTest.Client.DeleteAsync($"api/cliente/");
-
-            resposta.EnsureSuccessStatusCode();
-
-        }
-
-     
+    
     }
 }
