@@ -28,10 +28,10 @@ namespace ApiCliente.Controllers
                 var results = _clienteAppService.GetAll();
                 return Ok(results);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível exibir a lista de clientes.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível exibir a lista de clientes. {ex.Message}");
             }
 
         }
@@ -48,9 +48,9 @@ namespace ApiCliente.Controllers
                 var result = _clienteAppService.GetById(id);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não existe cliente cadastrado no ID informado.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não existe cliente cadastrado no ID informado. {ex.Message}");
             }
         }
 
@@ -66,9 +66,9 @@ namespace ApiCliente.Controllers
                 _clienteAppService.Add(clienteDTO);
                 return Ok("Cliente Cadastrado com sucesso!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível cadastrar o cliente.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível cadastrar o cliente. {ex.Message}");
             }
         }
 
@@ -85,9 +85,9 @@ namespace ApiCliente.Controllers
                 _clienteAppService.Update(id, clienteDTO);
                 return Ok("Cliente Atualizado com sucesso!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o cliente.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o cliente. {ex.Message}");
             }
         }
 
@@ -112,9 +112,9 @@ namespace ApiCliente.Controllers
                     return NotFound("Nenhum cadastro no ID informado.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possivel excluir o cliente.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possivel excluir o cliente. {ex.Message}");
             }
         }
 
