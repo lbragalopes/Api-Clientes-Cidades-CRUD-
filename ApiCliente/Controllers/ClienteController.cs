@@ -16,33 +16,30 @@ namespace ApiCliente.Controllers
     public class ClienteController : ControllerBase
     {
         private readonly IAppServiceCliente _clienteAppService;
-       
-
         public ClienteController(IAppServiceCliente clienteAppService)
         {
             _clienteAppService = clienteAppService;
-           
+
         }
 
-
+        // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             try
             {
                 var results = _clienteAppService.GetAll();
-
                 return Ok(results);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível exibir a lista de clientes.");
             }
 
         }
 
-
+        // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
@@ -52,17 +49,15 @@ namespace ApiCliente.Controllers
                     return NotFound();
 
                 var result = _clienteAppService.GetById(id);
-
                 return Ok(result);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não existe cliente cadastrado no ID informado.");
             }
         }
 
-
+        // POST api/values
         [HttpPost]
         public ActionResult Post([FromBody] ClienteDto clienteDTO)
         {
@@ -72,20 +67,15 @@ namespace ApiCliente.Controllers
                     return NotFound();
 
                 _clienteAppService.Add(clienteDTO);
-
                 return Ok("Cliente Cadastrado com sucesso!");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Cep Inválido. {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível cadastrar o cliente.");
             }
-
-
         }
 
-
-       
+        // PUT api/values/5
         [HttpPut("{id}")]
         public ActionResult Put(int id, ClienteDto clienteDTO)
         {
@@ -95,21 +85,16 @@ namespace ApiCliente.Controllers
                 if (id == 0)
                     return NotFound();
 
-               _clienteAppService.Update(id, clienteDTO);
-               
+                _clienteAppService.Update(id, clienteDTO);
                 return Ok("Cliente Atualizado com sucesso!");
-
-
-                           
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $" {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o cliente.");
             }
         }
 
-
-
+        // DELETE api/values/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -127,13 +112,12 @@ namespace ApiCliente.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    return NotFound("Nenhum cadastro no ID informado.");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw ex;
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possivel excluir o cliente.");
             }
         }
 

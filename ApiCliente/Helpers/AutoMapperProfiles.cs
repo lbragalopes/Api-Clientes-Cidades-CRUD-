@@ -17,7 +17,6 @@ namespace ApiCliente.Helpers
             CreateMap<Cidade, CidadeDto>().ReverseMap();
             CreateMap<ViaCep, ViaCepDto>().ReverseMap();
 
-
         }
     }
 }

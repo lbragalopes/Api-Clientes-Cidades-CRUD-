@@ -28,7 +28,7 @@ namespace ApiCliente.IntegrationTest
 
         }
 
-        [Fact(DisplayName = "Listar clientes"), TestPriority(3)]
+        [Fact(DisplayName = "Listar clientes"), TestPriority(2)]
         [Trait("Cliente", "Integração API")]
         public async Task ListarCliente_DeveRetornarComSucesso()
         {
@@ -40,19 +40,6 @@ namespace ApiCliente.IntegrationTest
             postResponse.EnsureSuccessStatusCode();
         }
 
-        [Fact(DisplayName = "Buscar cliente por Id com sucesso"), TestPriority(6)]
-        [Trait("Cliente", "Integração API ")]
-        public async Task BuscarCliente_porId_DeveRetornarComSucesso()
-        {
-            
-            // Act
-            var postResponse = await _integrationTest.Client.GetAsync($"api/cliente/3");
-
-            // Assert
-            postResponse.EnsureSuccessStatusCode();
-
-
-        }
 
         [Fact(DisplayName = "Adicionar cliente com Sucesso"), TestPriority(1)]
         [Trait("Cliente", "Integração API")]
@@ -75,7 +62,7 @@ namespace ApiCliente.IntegrationTest
             postResponse.EnsureSuccessStatusCode();
         }
 
-        [Fact(DisplayName = "Adicionar novo cliente - sem CEP"), TestPriority(2)]
+        [Fact(DisplayName = "Adicionar novo cliente - sem CEP"), TestPriority(3)]
         [Trait("Cliente", "Integração API")]
         public async Task QuandoAdicionarNovoCliente_DeveRetornar_BadRequest()
         {
@@ -120,8 +107,7 @@ namespace ApiCliente.IntegrationTest
             Assert.False(postResponse.IsSuccessStatusCode);
         }
 
-        //var random = new Random();
-        //var id = random.Next(1, 10);
+        
 
     }
 }
