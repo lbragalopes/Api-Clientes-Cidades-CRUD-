@@ -1,15 +1,11 @@
 ﻿using ApiCliente.Application.DTO;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Domain.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Application.Mapper
 {
-   public class MapperCidade : IMapperCidade
+    public class MapperCidade : IMapperCidade
     {
         List<CidadeDto> cidadeDtos = new List<CidadeDto>();
         public IEnumerable<CidadeDto> MapperListCidades(IEnumerable<Cidade> cidades)

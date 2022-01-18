@@ -1,18 +1,7 @@
-﻿using System.Net.Http.Json;
+﻿using ApiCliente.IntegrationTest.Config;
+using System;
 using System.Threading.Tasks;
 using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
-using ApiCliente.IntegrationTest.Config;
-using System;
-using ApiCliente.Domain.Entity;
-using System.Net.Http;
-using System.Text;
-using System.Net.Mime;
-using System.Net;
-using ApiCliente.Application.DTO;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
 
 namespace ApiCliente.IntegrationTest
 {
@@ -46,7 +35,7 @@ namespace ApiCliente.IntegrationTest
         public async Task QuandoAdicionarNovoCliente_DeveRetornar_Sucesso()
         {
             // Arrange
-            var itemInfo = new 
+            var itemInfo = new
             {
                 nome = "Cliente Teste",
                 dataNascimento = "2010-10-10",
@@ -67,7 +56,7 @@ namespace ApiCliente.IntegrationTest
         public async Task QuandoAdicionarNovoCliente_DeveRetornar_BadRequest()
         {
             // Arrange
-            var itemInfo = new 
+            var itemInfo = new
             {
                 Nome = "Cliente Teste",
                 Cep = ""
@@ -87,27 +76,27 @@ namespace ApiCliente.IntegrationTest
         public async Task QuandoAtualizarCliente_DeveRetornar_Sucesso()
         {
             // Arrange
-            var itemInfo = new 
+            var itemInfo = new
             {
                 nome = "Api Cliente Teste",
                 cep = "32113200"
 
             };
-           
-           var content = _integrationTest.GerarCorpoRequisicao(itemInfo);
-           
+
+            var content = _integrationTest.GerarCorpoRequisicao(itemInfo);
+
 
             var postResponse = await _integrationTest.Client.PutAsync($"api/cliente/{new Random().Next()}", content);
 
             // Act
-                     
+
             postResponse = await _integrationTest.Client.PutAsync(postResponse.Headers.Location, content);
-       
+
             // Assert 
             Assert.False(postResponse.IsSuccessStatusCode);
         }
 
-        
+
 
     }
 }

@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using ApiCliente.Core.Interface.Repository;
 
 namespace ApiCliente.Controllers
 {

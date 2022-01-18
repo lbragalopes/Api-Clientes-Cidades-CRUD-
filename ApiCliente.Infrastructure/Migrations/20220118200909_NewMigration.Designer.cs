@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCliente.Infrastructure.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20220117224217_NewMigration")]
+    [Migration("20220118200909_NewMigration")]
     partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,7 @@ namespace ApiCliente.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cep")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CidadeId")

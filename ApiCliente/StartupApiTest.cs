@@ -2,7 +2,6 @@
 using ApiCliente.Application.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,8 +21,6 @@ namespace ApiCliente
             services.AddTransient<IAppServiceCliente, AppServiceCliente>();
             services.AddMvc();
         }
-
-
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

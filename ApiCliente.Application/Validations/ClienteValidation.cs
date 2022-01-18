@@ -1,11 +1,5 @@
 ﻿using ApiCliente.Application.DTO;
-using ApiCliente.Domain.Entity;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Domain.Validations
 {
@@ -17,7 +11,7 @@ namespace ApiCliente.Domain.Validations
                  .NotEmpty().WithMessage("CEP é obrigatório.")
                  .NotNull().WithMessage("CEP é obrigatório.")
                  .Matches(@"^[0-9]{8}").WithMessage("O CEP informado é inválido.");
-            
+
 
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("NOME é obrigatório.")

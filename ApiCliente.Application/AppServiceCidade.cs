@@ -2,8 +2,6 @@
 using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
-using ApiCliente.Domain.Entity;
-using ApiCliente.Domain.Validations;
 using System.Collections.Generic;
 
 namespace ApiCliente.Application
@@ -24,7 +22,6 @@ namespace ApiCliente.Application
 
         public void Add(CidadeDto obj)
         {
-           
             var objCidade = _cidadeMapper.MapperToEntity(obj);
             _cidadeService.Add(objCidade);
         }
@@ -56,7 +53,7 @@ namespace ApiCliente.Application
 
         public void Update(int id, CidadeDto obj)
         {
-           
+
             var objCidade = _cidadeService.GetById(id);
 
             objCidade.Nome = obj.Nome;

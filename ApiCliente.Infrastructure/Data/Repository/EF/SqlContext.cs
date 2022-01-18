@@ -1,10 +1,5 @@
 ﻿using ApiCliente.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Infrastructure.Data.Repository.EF
 {
@@ -28,7 +23,7 @@ namespace ApiCliente.Infrastructure.Data.Repository.EF
             optionsBuilder
                 .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Sprint5DB;Trusted_Connection=True;");
         }
-              
+
     }
 
 }

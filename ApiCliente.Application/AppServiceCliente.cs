@@ -3,13 +3,7 @@ using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
 using ApiCliente.Domain.Entity;
-using ApiCliente.Domain.Validations;
-using FluentValidation.Results;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Application
 {
@@ -32,9 +26,7 @@ namespace ApiCliente.Application
         public void Add(ClienteDto obj)
         {
             // validação Nome cliente
-        
-            
-            var cliente = _clienteMapper.MapperToEntity(obj);
+           var cliente = _clienteMapper.MapperToEntity(obj);
 
             //popular o restante dos dados da classe cliente
             var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
@@ -83,7 +75,7 @@ namespace ApiCliente.Application
 
         public void Update(int id, ClienteDto obj)
         {
-           
+
             var objCliente = _clienteService.GetById(id);
 
             objCliente.Nome = obj.Nome;
@@ -92,7 +84,7 @@ namespace ApiCliente.Application
             var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
             objCliente.Bairro = endereco.Bairro;
             objCliente.Logradouro = endereco.Logradouro;
-            objCliente.CidadeId = objCliente.Cidade.Id;
+           
             //consultar a cidade no banco atraves do campo localidade do endereço
             var cidade = _cidadeService.GetByLocalidade(endereco.Localidade, endereco.Uf);
 

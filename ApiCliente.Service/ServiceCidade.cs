@@ -1,11 +1,7 @@
 ﻿using ApiCliente.Core.Interface.Repository;
 using ApiCliente.Core.Interface.Service;
 using ApiCliente.Domain.Entity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Service
 {
@@ -19,10 +15,11 @@ namespace ApiCliente.Service
             _repositoryCidade = repositoryCidade;
         }
 
+        // verificar se existe a cidade cadastrada
         public Cidade GetByLocalidade(string Localidade, string Uf)
         {
             var cidade = _repositoryCidade.GetAll().Where(cidade => cidade.Nome.Equals(Localidade) && cidade.Estado.Equals(Uf)).FirstOrDefault();
-             return cidade;
+            return cidade;
         }
     }
 }

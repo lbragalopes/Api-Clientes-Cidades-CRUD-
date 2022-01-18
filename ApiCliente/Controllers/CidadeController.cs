@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ApiCliente.Controllers
 {
@@ -29,10 +27,10 @@ namespace ApiCliente.Controllers
                 var results = _cidadeAppService.GetAll();
                 return Ok(results);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível exibir a lista de Cidades.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível exibir a lista de Cidades. {ex.Message}");
             }
         }
 
@@ -48,10 +46,10 @@ namespace ApiCliente.Controllers
                 var result = _cidadeAppService.GetById(id);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não existe cidade cadastrada no ID informado.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não existe cidade cadastrada no ID informado. {ex.Message}");
             }
         }
 
@@ -67,9 +65,9 @@ namespace ApiCliente.Controllers
                 _cidadeAppService.Add(cidadeDTO);
                 return Ok("Cidade cadastrada com sucesso!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha ao cadastrar a cidade.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha ao cadastrar a cidade. {ex.Message}");
             }
         }
 
@@ -87,9 +85,9 @@ namespace ApiCliente.Controllers
                 return Ok("Cidade atualizada com sucesso!");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar a cidade.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar a cidade. {ex.Message}");
             }
         }
 
@@ -107,10 +105,10 @@ namespace ApiCliente.Controllers
                 return Ok("Cidade removida com sucesso!");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possivel excluir a cidade.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possivel excluir a cidade. {ex.Message}");
             }
         }
     }

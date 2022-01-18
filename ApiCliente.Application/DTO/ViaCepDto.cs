@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApiCliente.Application.DTO
+﻿namespace ApiCliente.Application.DTO
 {
     public class ViaCepDto
     {
@@ -13,7 +7,5 @@ namespace ApiCliente.Application.DTO
         public string Bairro { get; set; }
         public string Localidade { get; set; }
         public string Uf { get; set; }
-
-
     }
 }
