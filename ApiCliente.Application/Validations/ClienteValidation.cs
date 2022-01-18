@@ -15,8 +15,8 @@ namespace ApiCliente.Domain.Validations
 
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("NOME é obrigatório.")
-                .NotNull().WithMessage("NOME é obrigatório.")
-                .MaximumLength(50).WithMessage("O nome deve conter no máximo 50 caracteres");
+                .NotNull().WithMessage("NOME é obrigatório.");
+                
         }
     }
 }

@@ -7,7 +7,6 @@ namespace ApiCliente.Domain.Entity
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Campo nome é obrigatório")]
-        [StringLength(30, ErrorMessage = "Campo nome deve conter no máximo 50 caracteres")]
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
         [Required(ErrorMessage = "Campo nome é obrigatório")]
