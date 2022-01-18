@@ -22,7 +22,7 @@ namespace ApiCliente.Service
         public Cidade GetByLocalidade(string Localidade, string Uf)
         {
             var cidade = _repositoryCidade.GetAll().Where(cidade => cidade.Nome.Equals(Localidade) && cidade.Estado.Equals(Uf)).FirstOrDefault();
-            return cidade;
+             return cidade;
         }
     }
 }

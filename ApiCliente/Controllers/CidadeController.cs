@@ -52,7 +52,7 @@ namespace ApiCliente.Controllers
             catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"A cidade não está cadastrada.");
             }
         }
 
@@ -69,7 +69,7 @@ namespace ApiCliente.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha. {ex.Message}");
             }
         }
         
@@ -98,7 +98,7 @@ namespace ApiCliente.Controllers
 
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id, CidadeDto cidadeDTO)
+        public ActionResult Delete(int id)
        {
             try
             {
@@ -106,14 +106,14 @@ namespace ApiCliente.Controllers
                     return NotFound();
 
                
-                    _cidadeAppService.Remove(id, cidadeDTO);
+                    _cidadeAppService.Remove(id);
                     return Ok("Cidade removida com sucesso!");
              
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possivel excluir a cidade! {ex.Message}");
             }
         }
     }

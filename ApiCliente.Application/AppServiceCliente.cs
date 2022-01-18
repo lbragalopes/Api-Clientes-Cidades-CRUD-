@@ -32,10 +32,8 @@ namespace ApiCliente.Application
         public void Add(ClienteDto obj)
         {
             // validação Nome cliente
-            ClienteValidation clienteValidation = new ClienteValidation();
-            if (clienteValidation.ValidaNome(obj.Nome))
-                throw new System.ArgumentException("Campo nome está vazio ou tem mais de 30 caracteres.", "Erro cliente");
-
+        
+            
             var cliente = _clienteMapper.MapperToEntity(obj);
 
             //popular o restante dos dados da classe cliente
@@ -85,11 +83,7 @@ namespace ApiCliente.Application
 
         public void Update(int id, ClienteDto obj)
         {
-            //validação Nome cliente
-            ClienteValidation clienteValidation = new ClienteValidation();
-            if (clienteValidation.ValidaNome(obj.Nome))
-                throw new System.ArgumentException("Campo nome é obrigatório ou tem mais de 30 caracteres", "Erro cliente");
-
+           
             var objCliente = _clienteService.GetById(id);
 
             objCliente.Nome = obj.Nome;

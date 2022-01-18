@@ -78,7 +78,7 @@ namespace ApiCliente.Controllers
             catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $" {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Cep Inválido. {ex.Message}");
             }
 
 

@@ -11,7 +11,7 @@ namespace ApiCliente.Application.Interface
     {
         void Add(CidadeDto obj);
         void Update(int id, CidadeDto obj);
-        void Remove(int id, CidadeDto obj);
+        void Remove(int id);
         IEnumerable<CidadeDto> GetAll();
         CidadeDto GetById(int id);
     }

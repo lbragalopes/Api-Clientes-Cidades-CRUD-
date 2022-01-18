@@ -22,8 +22,13 @@ namespace ApiCliente.Service
         public Cliente GetByCidadeId(int id)
         {
 
-        return _repositoryCliente.GetAll().Where(c => c.CidadeId == id).FirstOrDefault();
             
+            var cidadeID = _repositoryCliente.GetAll().Where(c => c.CidadeId.Equals(id)).FirstOrDefault();
+            if(cidadeID != null)
+            {
+                throw new System.ArgumentException($"Motivo: Clientes estão utilizando a cidade {cidadeID.Nome} no cadastro.");
+            }
+            return null;
                     
         }
     }

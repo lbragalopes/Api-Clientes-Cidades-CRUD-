@@ -13,9 +13,6 @@ namespace ApiCliente.Application.DTO
         public DateTime DataNascimento { get; set; }
       
         public string Cep { get; set; }
-    
-
-
 
     }
 }

@@ -120,6 +120,8 @@ namespace ApiCliente.IntegrationTest
             Assert.False(postResponse.IsSuccessStatusCode);
         }
 
-    
+        //var random = new Random();
+        //var id = random.Next(1, 10);
+
     }
 }

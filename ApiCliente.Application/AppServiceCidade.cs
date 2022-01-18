@@ -24,13 +24,7 @@ namespace ApiCliente.Application
 
         public void Add(CidadeDto obj)
         {
-            //validação Nome da cidade e Estado
-            CidadeValidation cidadeValidation = new CidadeValidation();
-            if (cidadeValidation.ValidarNomeCidade(obj.Nome))
-                throw new System.ArgumentException("O campo Nome está vazio ou tem mais de 20 caracteres", "Erro cliente");
-            if (cidadeValidation.ValidarEstado(obj.Estado))
-                throw new System.ArgumentException("O campo Estado está vazio ou tem mais de 2 caracteres (Ex: SP)", "Erro cliente");
-
+           
             var objCidade = _cidadeMapper.MapperToEntity(obj);
             _cidadeService.Add(objCidade);
         }
@@ -46,23 +40,23 @@ namespace ApiCliente.Application
             return _cidadeMapper.MapperToDTO(objCidade);
         }
 
-        public void Remove(int id, CidadeDto obj)
+        public void Remove(int id)
         {
             var objCidade = _cidadeService.GetById(id);
+            if (objCidade == null)
+            {
+                throw new System.ArgumentException($"Motivo: A cidade não está cadastrada.");
+
+            }
             var objCidadeId = _clienteService.GetByCidadeId(objCidade.Id);
             if (objCidadeId == null)
-             _cidadeService.Remove(objCidade);
+                _cidadeService.Remove(objCidade);
+
         }
 
         public void Update(int id, CidadeDto obj)
         {
-            //validação nome da cidade e estado
-            CidadeValidation cidadeValidation = new CidadeValidation();
-            if (cidadeValidation.ValidarNomeCidade(obj.Nome))
-                throw new System.ArgumentException("Campo logradouro é obrigatório ou tem mais de 20 caracteres", "Erro cidade");
-            if (cidadeValidation.ValidarEstado(obj.Estado))
-                throw new System.ArgumentException("O campo estado é obrigatório ou tem mais de 2 caracteres", "Erro cidade");
-
+           
             var objCidade = _cidadeService.GetById(id);
 
             objCidade.Nome = obj.Nome;

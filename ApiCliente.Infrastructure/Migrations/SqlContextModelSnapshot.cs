@@ -53,7 +53,7 @@ namespace ApiCliente.Infrastructure.Migrations
                     b.Property<string>("Cep")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CidadeId")
+                    b.Property<int>("CidadeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataNascimento")
@@ -78,7 +78,9 @@ namespace ApiCliente.Infrastructure.Migrations
                 {
                     b.HasOne("ApiCliente.Domain.Entity.Cidade", "Cidade")
                         .WithMany("Clientes")
-                        .HasForeignKey("CidadeId");
+                        .HasForeignKey("CidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cidade");
                 });
