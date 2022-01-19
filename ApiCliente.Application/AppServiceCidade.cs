@@ -2,6 +2,7 @@
 using ApiCliente.Application.Interface;
 using ApiCliente.Application.Interface.Mapper;
 using ApiCliente.Core.Interface.Service;
+using ApiCliente.Domain.Entity;
 using System.Collections.Generic;
 
 namespace ApiCliente.Application
@@ -26,15 +27,15 @@ namespace ApiCliente.Application
             _cidadeService.Add(objCidade);
         }
 
-        public IEnumerable<CidadeDto> GetAll()
+        public IEnumerable<Cidade> GetAll()
         {
             var objCidade = _cidadeService.GetAll();
-            return _cidadeMapper.MapperListCidades(objCidade);
+            return objCidade;
         }
-        public CidadeDto GetById(int id)
+        public Cidade GetById(int id)
         {
             var objCidade = _cidadeService.GetById(id);
-            return _cidadeMapper.MapperToDTO(objCidade);
+            return objCidade;
         }
 
         public void Remove(int id)

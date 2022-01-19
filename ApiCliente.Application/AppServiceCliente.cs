@@ -26,13 +26,13 @@ namespace ApiCliente.Application
         public void Add(ClienteDto obj)
         {
             // validação Nome cliente
-           var cliente = _clienteMapper.MapperToEntity(obj);
-
+            var cliente = _clienteMapper.MapperToEntity(obj);
+           
             //popular o restante dos dados da classe cliente
             var endereco = _viaCepService.GetViaCepJson(obj.Cep).Result;
             cliente.Bairro = endereco.Bairro;
             cliente.Logradouro = endereco.Logradouro;
-
+         
             //consultar a cidade no banco atraves do campo localidade do endereço
             var cidade = _cidadeService.GetByLocalidade(endereco.Localidade, endereco.Uf);
 
@@ -50,20 +50,16 @@ namespace ApiCliente.Application
             _clienteService.Add(cliente);
         }
 
-        public IEnumerable<ClienteDto> GetAll()
+        public IEnumerable<Cliente> GetAll()
         {
             var objCliente = _clienteService.GetAll();
-
-            var clientes = _clienteMapper.MapperListClientes(objCliente);
-
-            return clientes;
+            return objCliente;
         }
 
-        public ClienteDto GetById(int id)
+        public Cliente GetById(int id)
         {
             var objCliente = _clienteService.GetById(id);
-            ClienteDto cliente = _clienteMapper.MapperToDTO(objCliente);
-            return cliente;
+            return objCliente;
         }
 
         public void Remove(int id)

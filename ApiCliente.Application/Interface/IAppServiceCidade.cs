@@ -1,4 +1,5 @@
 ﻿using ApiCliente.Application.DTO;
+using ApiCliente.Domain.Entity;
 using System.Collections.Generic;
 
 namespace ApiCliente.Application.Interface
@@ -8,7 +9,7 @@ namespace ApiCliente.Application.Interface
         void Add(CidadeDto obj);
         void Update(int id, CidadeDto obj);
         void Remove(int id);
-        IEnumerable<CidadeDto> GetAll();
-        CidadeDto GetById(int id);
+        IEnumerable<Cidade> GetAll();
+        Cidade GetById(int id);
     }
 }
