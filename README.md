@@ -13,9 +13,8 @@ A APISprint5 é um projeto proposto pelo programa de bolsa da Compass UOL .NET, 
 
 - Baixe o projeto,
 - Abra arquivo ApiSprint5.sln no Visual Studio 2019,
-- Com o projeto aberto configure o banco de dados utilizando os seguintes comandos:
-    - Add-Migration NewMigration -Project ApiCliente.Infrastructure
-    - Update-database
+- Antes de rodar o projeto instale o SqlServer Express.
+- Com o projeto aberto configure o banco de dados utilizando o seguinte comando: Update-database
 
 
 ### Link da Documentação:
@@ -25,5 +24,6 @@ https://documenter.getpostman.com/view/18840205/UVXnHaTY
 
 ### Pré-requisitos:
 * Visual Studio 2019
+* SqlServer Express
 * .NET Core 3.1
 * Postman
