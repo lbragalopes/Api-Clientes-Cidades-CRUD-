@@ -68,6 +68,7 @@ namespace ApiCliente.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Falha ao cadastrar a cidade. {ex.Message}");
+              
             }
         }
 
