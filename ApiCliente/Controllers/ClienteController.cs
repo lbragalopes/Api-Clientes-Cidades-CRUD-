@@ -43,7 +43,7 @@ namespace ApiCliente.Controllers
             try
             {
                 if (id == 0)
-                    return NotFound();
+                    return NotFound("Não existe cliente com Id = 0");
 
                 var result = _clienteAppService.GetById(id);
                 return Ok(result);
@@ -80,14 +80,14 @@ namespace ApiCliente.Controllers
 
             {
                 if (id == 0)
-                    return NotFound();
+                    return NotFound("Não existe cliente com Id = 0");
 
                 _clienteAppService.Update(id, clienteDTO);
                 return Ok("Cliente Atualizado com sucesso!");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o cliente. {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o cliente com o Id informado.");
             }
         }
 
@@ -98,7 +98,7 @@ namespace ApiCliente.Controllers
             try
             {
                 if (id == 0)
-                    return NotFound();
+                    return NotFound("Não existe cliente com Id = 0");
 
                 var cliente = _clienteAppService.GetById(id);
                 if (cliente != null)
