@@ -1,5 +1,5 @@
 # ApiSprint5
-A APISprint5 é um projeto proposto pelo programa de bolsa da Compass UOL .NET, com o s seguintes propósitos: 
+A APISprint5 é um projeto proposto pelo programa de bolsa da Compass UOL .NET, com os seguintes requisitos: 
 - Relacionar Clientes e Cidade utilizando API Rest .NET 5, Entity Framerwork e SQL Server local.
 - Realizar o mapeamento (por meio de DTos), utilizando o AutoMapper.
 - Utilizar dois endpoints: um para clientes e outro para cidades.
